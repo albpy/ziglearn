@@ -15,3 +15,16 @@ entry...
 uart functions for send data. Im only using Tx
 ## pulse_duraion.zig
 duration measurement using echo pin & trig pin of hc-sro4 module
+
+## prog.elf prog.hex prog.dmp
+emitted files
+
+## cmd used
+Note wa
+### building
+zig build-obj -OReleaseSmall -target avr-freestanding-none -mcpu atmega328p /home/linux/simvr/space_detection_wheels/src/prog.zig && avr-ld -o prog.elf prog.o && avr-objcopy -j .text -j .data -O ihex prog.elf prog.hex && avr-objdump -D -h prog.elf > prog.dmp
+
+### uploading
+"/home/linux/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude" 
+"-C/home/linux/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf" -v -patmega328p -cusbasp -Pusb 
+"-Uflash:w:prog.hex:i"
