@@ -1,0 +1,8 @@
+UPLOAD CMD;-
+"/home/linux/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude" 
+"-C/home/linux/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf" -v -patmega328p -cusbasp -Pusb 
+"-Uflash:w:warmup.hex:i"
+
+BUILD CMD-:
+zig build-obj -OReleaseSmall -target avr-freestanding-none -mcpu atmega328p /home/linux/simvr/space_detection_wheels/src/warmup.zig && 
+avr-ld -o warmup.elf warmup.o && avr-objcopy -j .text -j .data -O ihex warmup.elf warmup.hex && avr-objdump -D -h warmup.elf > warmup.dmp
