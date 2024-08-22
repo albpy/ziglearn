@@ -1,0 +1,53 @@
+
+firmware/prog.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000048  00000000  00000000  00000094  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000c  00800060  00000048  000000dc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+
+Disassembly of section .text:
+
+00000000 <main>:
+   0:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <_edata+0x59>
+   4:	87 e6       	ldi	r24, 0x67	; 103
+   6:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <_edata+0x58>
+   a:	88 e0       	ldi	r24, 0x08	; 8
+   c:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <_edata+0x55>
+  10:	86 e0       	ldi	r24, 0x06	; 6
+  12:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <_edata+0x56>
+  16:	25 9a       	sbi	0x04, 5	; 4
+  18:	80 e0       	ldi	r24, 0x00	; 0
+  1a:	90 e0       	ldi	r25, 0x00	; 0
+  1c:	20 e2       	ldi	r18, 0x20	; 32
+  1e:	fc 01       	movw	r30, r24
+  20:	ea 30       	cpi	r30, 0x0A	; 10
+  22:	f1 05       	cpc	r31, r1                                 ; Keep the carry flag from cpi - carry flag set 1st cause (r30=0)<10
+  24:	68 f4       	brcc	.+26     	; 0x40 <__SREG__+0x1>   branch if carry is clear
+  26:	df 01       	movw	r26, r30
+  28:	a0 5a       	subi	r26, 0xA0	; 160                   ; 0-160 = 96 in r26(subtract immediate), since 0xA0 > r26=0 -> carryflag set
+  2a:	bf 4f       	sbci	r27, 0xFF	; 255                   ; subtract immediete with carry : we subtract the previous carry also -> 0 1st
+  2c:	3c 91       	ld	r19, X                                  ; load r19 with dataspace location 96(0x6000)is 0 1st
+  2e:	40 91 c0 00 	lds	r20, 0x00C0	; 0x8000c0 <_edata+0x54>    ; UCSR0A is 32(5th bit set) means UDREn is enabled
+  32:	40 72       	andi	r20, 0x20	; 32                    ; logical and & places in reg(to check UDREn enabled)
+  34:	40 30       	cpi	r20, 0x00	; 0                         ; not eq , 0-flag set : thus branch to 0x2e
+  36:	d9 f3       	breq	.-10     	; 0x2e <__zero_reg__+0x2d>
+  38:	30 93 c6 00 	sts	0x00C6, r19	; 0x8000c6 <_edata+0x5a>
+  3c:	31 96       	adiw	r30, 0x01	; 1                     ; add immediette to r30
+  3e:	f0 cf       	rjmp	.-32     	; 0x20 <__zero_reg__+0x1f>
+  40:	35 b1       	in	r19, 0x05	; 5
+  42:	32 27       	eor	r19, r18
+  44:	35 b9       	out	0x05, r19	; 5
+  46:	eb cf       	rjmp	.-42     	; 0x1e <__zero_reg__+0x1d>
+
+Disassembly of section .data:
+
+00800060 <__anon_769>:
+  800060:	48 65       	ori	r20, 0x58	; 88
+  800062:	6c 6c       	ori	r22, 0xCC	; 204
+  800064:	6f 20       	and	r6, r15
+  800066:	64 65       	ori	r22, 0x54	; 84
+  800068:	61 72       	andi	r22, 0x21	; 33
+	...
