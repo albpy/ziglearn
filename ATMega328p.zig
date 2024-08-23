@@ -3,6 +3,10 @@ pub const avr = struct {
     pub const ddrb : *volatile u8  = @ptrFromInt(0x24);
     pub const portb : *volatile u8 = @ptrFromInt(0x25);
 
+    pub const pinc : *volatile u8 = @ptrFromInt(0x26);
+    pub const ddrc : *volatile u8 = @ptrFromInt(0x27);
+    pub const portc : *volatile u8 = @ptrFromInt(0x28); 
+
     pub const pind : *volatile u8  = @ptrFromInt(0x29); //reads    
     pub const ddrd : *volatile u8  = @ptrFromInt(0x2A);
     pub const portd : *volatile u8  = @ptrFromInt(0x2B);

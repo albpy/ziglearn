@@ -22,6 +22,9 @@ pub fn UART_send_byte(s: [] const u8) void {
     for (s) |e|{
         UART_Transmit(e);
     }
+    UART_Transmit(10);
+    // delay.delay_1ms();
+    // delay.delay_1ms();
         // s+=1;
     // while ((avr.UCSR0A.* & (1 << 6)) == 0) {} // Wait for transmission complete
     // }

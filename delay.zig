@@ -1,20 +1,29 @@
 pub fn delay_1s() void {
     var i : u32 = 0;
     while (i<21739):(i+=1){
-        delay_ms();
+        delay_ms(250);
     }
+}
+
+pub fn delay_1us() void {
+    // var i : u32 = 0;
+    // while (i<21362):(i+=1){
+        delay_ms(6);
+    // }
+
 }
 
 pub fn delay_1ms() void {
     var i : u32 = 0;
-    while (i<5333):(i+=1){
-        delay_ms();
-    }
+    while (i<2135):(i+=1){
+        delay_ms(250);
+    } 
 }
-pub fn delay_ms() void {
-    const ticks : u8 = 250;
+
+pub fn delay_ms(ticks : u8) void {
+    const ticks_ : u8 = ticks;
     const reg : u5 = 18;
-    _delay_loop_2(reg, ticks);
+    _delay_loop_2(reg, ticks_);
 }
 
 

@@ -4,3 +4,8 @@ _uart.h
 main.elf
 main.hex
 wiring_pulse.S
+motion_chk/
+start.o
+start.o.o
+test.lst
+main.s
